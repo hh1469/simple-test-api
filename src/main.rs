@@ -15,6 +15,8 @@ async fn main() -> std::io::Result<()> {
 
     let cli = Cli::parse();
 
+    log::info!("listen on: {}", &cli.address);
+
     let listener = TcpListener::bind(cli.address).expect("failed to bind to address");
 
     startup::run(listener)?.await
