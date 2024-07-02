@@ -30,9 +30,10 @@ pub async fn get_voucher(req: HttpRequest, data: web::Data<Mutex<MemDB>>) -> imp
     };
 
     if d.data.contains(&params.voucher_barcode) {
-        log::info!("already found {}", params.voucher_barcode);
+        log::info!("already found: {}", params.voucher_barcode);
         return HttpResponse::Ok();
     }
 
+    log::info!("not found: {}", params.voucher_barcode);
     HttpResponse::NotFound()
 }

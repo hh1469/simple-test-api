@@ -20,9 +20,6 @@ pub async fn sync_voucher(req: HttpRequest, data: web::Data<Mutex<MemDB>>) -> im
         }
     };
 
-    log::info!("sync: {:?}", params);
-    log::info!("barcode: {}", params.voucher_barcode);
-
     let data = data.lock();
     let mut d = match data {
         Ok(d) => d,
@@ -33,10 +30,11 @@ pub async fn sync_voucher(req: HttpRequest, data: web::Data<Mutex<MemDB>>) -> im
     };
 
     if !d.data.contains(&params.voucher_barcode) {
+        log::info!("add: {}", &params.voucher_barcode);
         d.data.push(params.voucher_barcode.to_string());
     }
 
-    log::info!("{:?}", d.data);
+    log::info!("data: {:?}", d.data);
 
     HttpResponse::Ok()
 }
