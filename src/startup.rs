@@ -19,6 +19,10 @@ pub fn run(listener: TcpListener) -> std::io::Result<Server> {
                 "/api/transactions/SyncVoucher",
                 web::get().to(crate::routes::sync_voucher),
             )
+            .route(
+                "/api/transactions/SyncVoucherCashDesk",
+                web::get().to(crate::routes::sync_voucher_cash_desk),
+            )
         // .app_data(connection.clone())
     })
     .listen(listener)?
