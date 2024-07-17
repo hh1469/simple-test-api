@@ -34,7 +34,7 @@ in {
 
       serviceConfig = {
         User = "${user}";
-        Group = "${group};
+        Group = "${group}";
         Restart = "always";
         ExecStart = "${lib.getBin pkgs.simple-test-api}/bin/simple-test-api -a 127.0.0.1:8080";
       };
