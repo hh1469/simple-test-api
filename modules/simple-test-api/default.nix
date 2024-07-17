@@ -5,6 +5,8 @@
   ...
 }: let
   cfg = config.services.simple-test-api;
+  user = "xxuser";
+  group = "xxgroup"
 in {
   options = {
     services.simple-test-api = {
@@ -15,13 +17,13 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.simple-test-api = {
+    users.users.${user} = {
       description = "api daemon user";
       isSystemUser = true;
-      group = "simple-test-api";
+      group = ${group};
     };
 
-    users.groups.simple-test-api = {};
+    users.groups.${group} = {};
 
     systemd.services.simple-test-api = {
       description = "simple test api";
@@ -31,8 +33,8 @@ in {
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {
-        User = "simple-test-api";
-        Group = "simple-test-api";
+        User = ${user};
+        Group = ${group};
         Restart = "always";
         ExecStart = "${lib.getBin pkgs.simple-test-api}/bin/simple-test-api -a 127.0.0.1:8080";
       };
