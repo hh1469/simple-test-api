@@ -8,7 +8,7 @@
 in {
   options = {
     services.simple-test-api = {
-      enable = mkEnableOption ''
+      enable = lib.mkEnableOption ''
         simple api for test-environment
       '';
     };
