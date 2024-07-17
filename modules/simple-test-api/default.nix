@@ -17,10 +17,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.${user} = {
+    users.users."${user}" = {
       description = "api daemon user";
       isSystemUser = true;
-      group = ${group};
+      group = "${group}";
     };
 
     users.groups.${group} = {};
@@ -33,8 +33,8 @@ in {
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {
-        User = ${user};
-        Group = ${group};
+        User = "${user}";
+        Group = "${group};
         Restart = "always";
         ExecStart = "${lib.getBin pkgs.simple-test-api}/bin/simple-test-api -a 127.0.0.1:8080";
       };
