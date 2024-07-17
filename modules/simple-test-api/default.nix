@@ -5,8 +5,8 @@ flake: {
   ...
 }: let
   cfg = config.services.simple-test-api;
-  user = "xxuser";
-  group = "xxgroup";
+  user = "apiuser";
+  group = "apigroup";
   inherit (flake.packages.${pkgs.stdenv.hostPlatform.system}) simple-test-api;
 in {
   options = {
