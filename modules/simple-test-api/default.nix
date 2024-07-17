@@ -1,4 +1,4 @@
-{
+flake: {
   config,
   lib,
   pkgs,
@@ -7,6 +7,7 @@
   cfg = config.services.simple-test-api;
   user = "xxuser";
   group = "xxgroup";
+  inherit (flake.packages.${pkgs.stdenv.hostPlatform.system}) simple-test-api;
 in {
   options = {
     services.simple-test-api = {
@@ -36,7 +37,7 @@ in {
         User = "${user}";
         Group = "${group}";
         Restart = "always";
-        ExecStart = "${lib.getBin pkgs.simple-test-api}/bin/simple-test-api -a 127.0.0.1:8080";
+        ExecStart = "${lib.getBin simple-test-api}/bin/simple-test-api -a 127.0.0.1:8080";
       };
     };
   };

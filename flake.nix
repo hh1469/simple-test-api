@@ -13,7 +13,7 @@
     nixpkgs,
     rust-overlay,
   }:
-    {nixosModules.simple-test-api = import ./modules/simple-test-api/default.nix;}
+    {nixosModules.simple-test-api = import ./modules/simple-test-api/default.nix self;}
     // flake-utils.lib.eachDefaultSystem (system: let
       overlays = [(import rust-overlay)];
       pkgs = import nixpkgs {inherit system overlays;};
