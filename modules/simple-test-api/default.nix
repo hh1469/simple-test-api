@@ -6,7 +6,7 @@
 }: let
   cfg = config.services.simple-test-api;
   user = "xxuser";
-  group = "xxgroup"
+  group = "xxgroup";
 in {
   options = {
     services.simple-test-api = {

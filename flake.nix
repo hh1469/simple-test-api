@@ -13,7 +13,8 @@
     nixpkgs,
     rust-overlay,
   }:
-    flake-utils.lib.eachDefaultSystem (system: let
+    {nixosModules.simple-test-api = import ./modules/simple-test-api/default.nix;}
+    // flake-utils.lib.eachDefaultSystem (system: let
       overlays = [(import rust-overlay)];
       pkgs = import nixpkgs {inherit system overlays;};
       rust = pkgs.rust-bin.stable.latest.default.override {
@@ -24,8 +25,6 @@
         cargo = rust;
       };
     in {
-      nixosModules.simple-test-api = import ./modules/simple-test-api/default.nix;
-
       packages = rec {
         simple-test-api = rustPlatform.buildRustPackage rec {
           pname = "simple-test-api";
