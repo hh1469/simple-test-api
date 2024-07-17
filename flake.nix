@@ -24,6 +24,9 @@
         cargo = rust;
       };
     in {
+      nixosModules.simple-test-api = import ./modules/simple-test-api/default.nix self;
+      nixosModules.default = self.nixosModules.simple-test-api;
+
       packages = rec {
         simple-test-api = rustPlatform.buildRustPackage rec {
           pname = "simple-test-api";
